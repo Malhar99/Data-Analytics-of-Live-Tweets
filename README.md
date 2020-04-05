@@ -18,14 +18,3 @@ $ flask run --host=127.0.0.1 --port=5000
 $
 $ # Access the app in browser: http://127.0.0.1:5000/
 ```
-
-login cred:
-
-1) name:Malhartrivedi5
-   password:12345678
-
-2) name:PMOIndia
-   password:12345678
-
-3) name:wearedmtalks
-   password:12345678
