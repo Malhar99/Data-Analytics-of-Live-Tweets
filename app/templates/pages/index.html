@@ -1,0 +1,330 @@
+
+  <!-- Main content -->
+  <div class="main-content">
+
+    <!-- Top navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <!-- User -->
+        {% include 'includes/user-dropdown.html' %}
+        
+      </div>
+    </nav>
+
+    <!-- Header -->
+    {% include 'includes/top-stats.html' %}
+
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <!-- Chart - 1 -->
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
+                  <h2 class="text-white mb-0">Sentiment Analysis Chart</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              <div class="chart">
+                <!-- Chart wrapper -->
+                <canvas id="myChart1" width="800" height="300">
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                  <script>
+                    Chart.defaults.global.responsive = true;
+                    Chart.defaults.global.legend.display = false;
+                    console.log({{ slices }});
+                    var ctx = document.getElementById("myChart1").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                      type: 'pie',
+                      data: {
+                        labels:['Positive Tweets', 'Neutral Tweets','Controversial Tweets'],//slices
+                        datasets: [{
+                          backgroundColor: [
+                            "#2ecc71",
+                            "#3498db",
+                            "#95a5a6"
+                          ],
+                          data:  [{% for item in slices %} 
+                                    {{item}},
+                                  {% endfor %}], //activities
+                        }]
+                      }
+                    });
+                  </script>
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- chart -2 -->
+        <div class="col-xl-4">
+          <div class="card shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-muted ls-1 mb-1">Overview</h6>
+                  <h2 class="mb-0">Sources used for Tweets</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              <div class="chart">
+                <canvas id="myChart2" width="300" height="300">
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                  <script>
+                      Chart.defaults.global.responsive = true;
+                      Chart.defaults.global.legend.display = false;
+                      // console.log("pass1");
+                      // define the chart data
+                      var chartData = {
+                        labels : [{% for item in svalues %}//svalues
+                                    "{{item}}",
+                                  {% endfor %}],
+                        datasets : [{
+                            data : [{% for item in scounts %} //scounts
+                                      {{item}},
+                                    {% endfor %}],
+                            spanGaps: false
+                        }]
+                      }
+                      console.log("pass2");
+                      // get chart canvas
+                      var ctx = document.getElementById("myChart2").getContext("2d");
+                        
+                      // create the chart using the chart canvas
+                      var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: chartData,
+                        legend: {
+                            display: false,
+                            position: 'right'
+                        }
+                        
+                      });  
+                  </script>
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <!-- chart -3 -->
+      <div class="row">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
+                  <h2 class="text-white mb-0">Likes Analysis Chart</h2>
+                </div>
+              </div>
+            </div>
+            <div>
+              <!-- Chart -->
+              <div>
+                <!-- Chart wrapper -->
+                <canvas id="myChart3" width="900" height="300"></canvas>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                    <script>
+                      Chart.defaults.global.responsive = true;
+                      Chart.defaults.global.legend.display = false;
+                      // console.log("pass1");
+                      // define the chart data
+                      var chartData = {
+                        labels : [{% for item in xdlikes %}//xdlikes
+                                    "{{item}}",
+                                  {% endfor %}],
+                        datasets : [{
+                            
+                            fill: true,
+                            position: 'right',
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data : [{% for item in ylikes %} //ylikes
+                                      {{item}},
+                                    {% endfor %}],
+                            spanGaps: false
+                        }]
+                      }
+                      console.log("pass2");
+                      // get chart canvas
+                      var ctx = document.getElementById("myChart3").getContext("2d");
+                        
+                      // create the chart using the chart canvas
+                      var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: chartData,
+                        legend: {
+                            display: false,
+                            position: 'right'
+                        }
+                        
+                      });  
+                    </script>
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <!-- chart -4 -->
+      <div class="row">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
+                  <h2 class="text-white mb-0">Retweets Analysis Chart</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              <div class="chart">
+                <!-- Chart wrapper -->
+                <canvas id="myChart4" width="900" height="300"></canvas>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                    <script>
+                      Chart.defaults.global.responsive = true;
+                      Chart.defaults.global.legend.display = false;
+                      console.log("pass1");
+                      // define the chart data
+                      var chartData = {
+                        labels : [{% for item in xdretweet %} //xdretweet
+                                    "{{item}}",
+                                  {% endfor %}],
+                        datasets : [{
+                            
+                            fill: true,
+                            position: 'right',
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(75,192,192,0.4)",
+                            borderColor: "rgba(75,192,192,1)",
+                            borderCapStyle: 'butt',
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            borderJoinStyle: 'miter',
+                            pointBorderColor: "rgba(75,192,192,1)",
+                            pointBackgroundColor: "#fff",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 1,
+                            pointHitRadius: 10,
+                            data : [{% for item in yretweet %}//yretweet
+                                      {{item}},
+                                    {% endfor %}],
+                            spanGaps: false
+                        }]
+                      }
+                      console.log("pass2");
+                      // get chart canvas
+                      var ctx = document.getElementById("myChart4").getContext("2d");
+                        
+                      // create the chart using the chart canvas
+                      var myChart2 = new Chart(ctx, {
+                        type: 'line',
+                        data: chartData,
+                        legend: {
+                            display: false,
+                            position: 'right'
+                        }
+                        
+                      });  
+                    </script>
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <!-- chart -5 -->
+      <div class="row">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
+                  <h2 class="text-white mb-0">Hashtags used in Tweets</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              <div class="chart">
+                <!-- Chart wrapper -->
+                <canvas id="myChart5" width="900" height="300">
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+                  <script>
+                      Chart.defaults.global.responsive = true;
+                      Chart.defaults.global.legend.display = false;
+                      // console.log("pass1");
+                      // define the chart data
+                      var chartData = {
+                        labels : [{% for item in hvalues %}//hvalues
+                                    "{{item}}",
+                                  {% endfor %}],
+                        datasets : [{
+                            backgroundColor: "rgba(255,153,0,0.4)",
+                            data : [{% for item in hcounts %} //hcounts
+                                      {{item}},
+                                    {% endfor %}],
+                            spanGaps: false
+                        }]
+                      }
+                      console.log("pass2");
+                      // get chart canvas
+                      var ctx = document.getElementById("myChart5").getContext("2d");
+                        
+                      // create the chart using the chart canvas
+                      var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: chartData,
+                        legend: {
+                            display: false,
+                            position: 'right'
+                        }
+                        
+                      }); 
+                  </script>
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'includes/footer.html' %}
+
+    </div>
+  </div>
+
