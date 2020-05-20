@@ -2,7 +2,6 @@ tweepy
 textblob
 numpy
 pandas
-json
 flask
 flask_login
 flask_migrate
