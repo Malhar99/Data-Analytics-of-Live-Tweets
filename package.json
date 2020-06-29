@@ -1,7 +1,7 @@
 {
-    "name": "flask-argon-dashboard",
+    "name": "tweeter-dashboard",
     "version": "1.0.0",
-    "description": "An open-source Flask boilerplate suitable for admin panels.",
+    "description": "",
     "main": "gruntfile.js",
     "devDependencies": {
         "rimraf": "^2.5.2"
@@ -17,13 +17,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/app-generator/flask-argon-dashboard"
+        "url": "https://github.com/Malhar99/Data-Analytics-of-Live-Tweets"
     },
-    "bugs": {
-        "url": "https://github.com/app-generator/flask-argon-dashboard/issues",
-        "email": "support@appseed.us"
-    },
-    "author": "AppSeed.us <support@appseed.us> (https://appseed.us)",
+    "author": "Malhar Trivedi",
     "license": "MIT",
     "dependencies": {
         "ftp-deploy": "^2.3.3"
